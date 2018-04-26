@@ -20,11 +20,25 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisService {
 
+    /**
+     * redis 操作
+     *
+     * redisTemplate.opsForValue();//操作字符串
+     * redisTemplate.opsForHash();//操作hash
+     * redisTemplate.opsForList();//操作list
+     * redisTemplate.opsForSet();//操作set
+     * redisTemplate.opsForZSet();//操作有序set
+     */
     @Autowired
     private RedisTemplate redisTemplate;
 
+
+    /**
+     * 操作String数据类型
+     * StringRedisTemplate是RedisTemplate的唯一子类。
+     */
     @Autowired
-    public StringRedisTemplate stringRedisTemplate;//直接操作String数据类型
+    public StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -190,6 +204,16 @@ public class RedisService {
      */
     public String rightPop(String key) {
         return stringRedisTemplate.boundListOps(key).rightPop();
+    }
+
+    /**
+     * 返回String list的长度
+     * @param key
+     * @return
+     */
+    public long listSize(String key){
+        return stringRedisTemplate.boundListOps(key).size();
+
     }
 
 }
